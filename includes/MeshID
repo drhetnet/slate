@@ -1,280 +1,218 @@
-<h1 id="documentation">Documentation</h1>
+<h1 id="meshid">MeshID</h1>
+<pre class="highlight plaintext"><code>## `public class MeshID implements Comparable&lt;MeshID&gt;, Serializable, Parcelable`
 
-<h2 id="public-class-meshid-implements-comparablemeshid-serializable-parcelable"><code class="prettyprint">public class MeshID implements Comparable&lt;MeshID&gt;, Serializable, Parcelable</code></h2>
+Created by jason on 08/08/16. Attempts to look for a previously created encrypted unique id file on the device. If it does not exist, attempt to create one.
 
-<p>Created by jason on 08/08/16. Attempts to look for a previously created encrypted unique id file on the device. If it does not exist, attempt to create one.</p>
 
-<p>Later on we will support restoration of an existing id using 2d bar codes</p>
 
-<h2 id="public-boolean-readidentity-string-password"><code class="prettyprint">public boolean readIdentity(String password)</code></h2>
+Later on we will support restoration of an existing id using 2d bar codes
 
-<p>Used to read the identity of a user from a keystore file. Not meant to be called by developers</p>
+## `public boolean readIdentity(String password)`
 
-<ul>
-<li><strong>Parameters:</strong> <code class="prettyprint">password</code> — The password to the encrypted wallet file</li>
-<li><strong>Returns:</strong> success if the operation was successful, otherwise false</li>
-</ul>
+Used to read the identity of a user from a keystore file. Not meant to be called by developers
 
-<h2 id="public-boolean-writeidentity-string-password"><code class="prettyprint">public boolean writeIdentity(String password)</code></h2>
+ * **Parameters:** `password` — The password to the encrypted wallet file
+ * **Returns:** success if the operation was successful, otherwise false
 
-<p>Assumes we have a valid identity, tries to save it in the proper folder. Not meant to be called by developers</p>
+## `public boolean writeIdentity(String password)`
 
-<ul>
-<li><strong>Parameters:</strong> <code class="prettyprint">password</code> — for the encrypted wallet file</li>
-<li><strong>Returns:</strong> true if the operation was successful, false othewise</li>
-</ul>
+Assumes we have a valid identity, tries to save it in the proper folder. Not meant to be called by developers
 
-<h2 id="public-void-createidentity"><code class="prettyprint">public void createIdentity()</code></h2>
+ * **Parameters:** `password` — for the encrypted wallet file
+ * **Returns:** true if the operation was successful, false othewise
 
-<p>Creates a new random identity. Not meant to be called by developers</p>
+## `public void createIdentity()`
 
-<h2 id="private-boolean-readid-file-keystore-string-password"><code class="prettyprint">private boolean readID(File keystore, String password)</code></h2>
+Creates a new random identity. Not meant to be called by developers
 
-<p>Attempts to read the file and parse it into JSON objects so that we can attempt to decrypt the private key, derive the id and public address.</p>
+## `private boolean readID(File keystore, String password)`
 
-<p>Not meant to be called by developers</p>
+Attempts to read the file and parse it into JSON objects so that we can attempt to decrypt the private key, derive the id and public address.
 
-<ul>
-<li><strong>Parameters:</strong> <code class="prettyprint">keystore</code> — the keystore file to be parsed</li>
-<li><strong>Returns:</strong> true if the operation was successful, false otherwise</li>
-</ul>
 
-<h2 id="suppresswarnings-unchecked-private-boolean-writeid-file-keystore-string-password"><code class="prettyprint">@SuppressWarnings(&quot;unchecked&quot;) private boolean writeID(File keystore, String password)</code></h2>
 
-<p>If we have to write the the ID file - for now we generate a new address because this function should only be called if the keystore doesn&rsquo;t already exist.</p>
+Not meant to be called by developers
 
-<p>TODO: implement some method to ask the user for a password for encrypting the identity</p>
+ * **Parameters:** `keystore` — the keystore file to be parsed
+ * **Returns:** true if the operation was successful, false otherwise
 
-<ul>
-<li><strong>Parameters:</strong> <code class="prettyprint">keystore</code> — the keystore to write the output to</li>
-<li><strong>Returns:</strong> true if the operation was successful, false otherwise</li>
-</ul>
+## `@SuppressWarnings("unchecked") private boolean writeID(File keystore, String password)`
 
-<h2 id="private-object-getignorecase-jsonobject-jobj-string-key"><code class="prettyprint">private Object getIgnoreCase(JSONObject jobj, String key)</code></h2>
+If we have to write the the ID file - for now we generate a new address because this function should only be called if the keystore doesn't already exist.
 
-<p>Helper function which searches the JSON for the key in a case insensitive way (some of the key Store files, especially the older ones don&rsquo;t follow the convention properly)</p>
 
-<ul>
-<li><strong>Parameters:</strong>
 
-<ul>
-<li><code class="prettyprint">jobj</code> — the JSON object we are searching</li>
-<li><code class="prettyprint">key</code> — the key (name) of the field we are searching for</li>
-</ul></li>
-<li><p><strong>Returns:</strong> returns the object that is found (could be another JSON object, a String, Int, etc.</p>
+TODO: implement some method to ask the user for a password for encrypting the identity
 
-<p>or null if nothing is found.</p></li>
-</ul>
+ * **Parameters:** `keystore` — the keystore to write the output to
+ * **Returns:** true if the operation was successful, false otherwise
 
-<h2 id="private-boolean-parsefromjson-jsonobject-keystore"><code class="prettyprint">private boolean parseFromJSON(JSONObject keystore)</code></h2>
+## `private Object getIgnoreCase(JSONObject jobj, String key)`
 
-<p>Attempts to construct a KeyStore out of the JSON object supplied.</p>
+Helper function which searches the JSON for the key in a case insensitive way (some of the key Store files, especially the older ones don't follow the convention properly)
 
-<ul>
-<li><p><strong>Parameters:</strong> <code class="prettyprint">keystore</code> — the keystore JSON object to try to parse for all of the required</p>
+ * **Parameters:**
+   * `jobj` — the JSON object we are searching
+   * `key` — the key (name) of the field we are searching for
+ * **Returns:** returns the object that is found (could be another JSON object, a String, Int, etc.
 
-<p>fields. Will return false if something isn&rsquo;t right</p></li>
-<li><p><strong>Returns:</strong> true if success, false otherwise</p></li>
-</ul>
+     or null if nothing is found.
 
-<h2 id="private-boolean-unlock-string-passwd"><code class="prettyprint">private boolean unlock(String passwd)</code></h2>
+## `private boolean parseFromJSON(JSONObject keystore)`
 
-<p>Attempts to unlock the keystore which has been loaded. If it is successful, the Keystore object will have its fields filled with all of the information required for enc / dec and account access (address, public &amp; private key etc). https://github.com/ethereum/go-ethereum/wiki/Passphrase-protected-key-store-spec https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition https://github.com/akoskm/bouncy-castle-sha3/blob/master/src/main/java/io/github/ bouncycastlesha3/SHA3Util.java http://javadox.com/com.lambdaworks/scrypt/1.4.0/com/lambdaworks/crypto/SCryptUtil.java.html https://www.myetherwallet.com/</p>
+Attempts to construct a KeyStore out of the JSON object supplied.
 
-<ul>
-<li><strong>Returns:</strong> true if the unlocking was successful, false otherwise</li>
-</ul>
+ * **Parameters:** `keystore` — the keystore JSON object to try to parse for all of the required
 
-<h2 id="private-byte-concatenatebytearrays-byte-a-byte-b"><code class="prettyprint">private byte[] concatenateByteArrays(byte[] a, byte[] b)</code></h2>
+     fields. Will return false if something isn't right
+ * **Returns:** true if success, false otherwise
 
-<p>Helper function to join two byte arrays together.</p>
+## `private boolean unlock(String passwd)`
 
-<ul>
-<li><strong>Parameters:</strong>
+Attempts to unlock the keystore which has been loaded. If it is successful, the Keystore object will have its fields filled with all of the information required for enc / dec and account access (address, public &amp; private key etc). https://github.com/ethereum/go-ethereum/wiki/Passphrase-protected-key-store-spec https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition https://github.com/akoskm/bouncy-castle-sha3/blob/master/src/main/java/io/github/ bouncycastlesha3/SHA3Util.java http://javadox.com/com.lambdaworks/scrypt/1.4.0/com/lambdaworks/crypto/SCryptUtil.java.html https://www.myetherwallet.com/
 
-<ul>
-<li><code class="prettyprint">a</code> — the first byte array</li>
-<li><code class="prettyprint">b</code> — the second byte array</li>
-</ul></li>
-<li><strong>Returns:</strong> the merged array</li>
-</ul>
+ * **Returns:** true if the unlocking was successful, false otherwise
 
-<h2 id="public-string-todebugstring"><code class="prettyprint">public String toDebugString()</code></h2>
+## `private byte[] concatenateByteArrays(byte[] a, byte[] b)`
 
-<p>Used to print out a textual representation of the Keystore.</p>
+Helper function to join two byte arrays together.
 
-<p>Not meant to be called by developers</p>
+ * **Parameters:**
+   * `a` — the first byte array
+   * `b` — the second byte array
+ * **Returns:** the merged array
 
-<ul>
-<li><strong>Returns:</strong> the string representation of the Keystore</li>
-</ul>
+## `public String toDebugString()`
 
-<h2 id="public-byte-getrawuuid"><code class="prettyprint">public byte[] getRawUuid()</code></h2>
+Used to print out a textual representation of the Keystore.
 
-<p>Assumes the ID has either already been read in from a file or auto generated.</p>
 
-<ul>
-<li><strong>Returns:</strong> the 20 byte uuid</li>
-</ul>
 
-<h2 id="override-public-string-tostring"><code class="prettyprint">@Override public String toString()</code></h2>
+Not meant to be called by developers
 
-<p>Returns the Hex String representation of the public uuid.</p>
+ * **Returns:** the string representation of the Keystore
 
-<ul>
-<li><strong>Returns:</strong> the Hex String representation of the public uuid</li>
-</ul>
+## `public byte[] getRawUuid()`
 
-<h2 id="override-public-boolean-equals-object-p2"><code class="prettyprint">@Override public boolean equals(Object p2)</code></h2>
+Assumes the ID has either already been read in from a file or auto generated.
 
-<p>Compares this ID with another - for now does the comparison based on the 20 byte public address which is being used as the uuid.</p>
+ * **Returns:** the 20 byte uuid
 
-<ul>
-<li><strong>Parameters:</strong> <code class="prettyprint">p2</code> — the second ID to compare against</li>
-<li><strong>Returns:</strong> true or false depending on if they are equal</li>
-</ul>
+## `@Override public String toString()`
 
-<h2 id="override-public-int-hashcode"><code class="prettyprint">@Override public int hashCode()</code></h2>
+Returns the Hex String representation of the public uuid.
 
-<p>Required for equality in the hashmap (immutability).</p>
+ * **Returns:** the Hex String representation of the public uuid
 
-<h2 id="private-int-compare-byte-left-byte-right"><code class="prettyprint">private int compare(byte[] left, byte[] right)</code></h2>
+## `@Override public boolean equals(Object p2)`
 
-<p>Utility function for comparing two byte arrays</p>
+Compares this ID with another - for now does the comparison based on the 20 byte public address which is being used as the uuid.
 
-<ul>
-<li><strong>Parameters:</strong>
+ * **Parameters:** `p2` — the second ID to compare against
+ * **Returns:** true or false depending on if they are equal
 
-<ul>
-<li><code class="prettyprint">left</code> — the left array to compare</li>
-<li><code class="prettyprint">right</code> — the right array to compare</li>
-</ul></li>
-<li><strong>Returns:</strong> less than 0 if a less than b, greater than zero if b greater than a. zero otherwise</li>
-</ul>
+## `@Override public int hashCode()`
 
-<h2 id="public-int-compareto-nonnull-meshid-compareid"><code class="prettyprint">public int compareTo(@NonNull MeshID compareID)</code></h2>
+Required for equality in the hashmap (immutability).
 
-<p>Allows comparison by ID so that we can sort entries by ID</p>
+## `private int compare(byte[] left, byte[] right)`
 
-<ul>
-<li><strong>Parameters:</strong> <code class="prettyprint">compareID</code> — the MeshID to compare against</li>
-<li><strong>Returns:</strong> less than 0 if a &lt; b, greater than zero if b &lt; a. zero otherwise</li>
-</ul>
+Utility function for comparing two byte arrays
 
-<h2 id="public-void-readobject-objectinputstream-ainputstream-throws-classnotfoundexception-ioexception"><code class="prettyprint">public void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException</code></h2>
+ * **Parameters:**
+   * `left` — the left array to compare
+   * `right` — the right array to compare
+ * **Returns:** less than 0 if a less than b, greater than zero if b greater than a. zero otherwise
 
-<p>Assumes we are reading a mesh id to be creatd from raw bytes note the mesh id created from this read cannot generate a compatible eckey for signatures. Note we only reconstructing the uuid itself not any of the encryption stuff or the wallet info.</p>
+## `public int compareTo(@NonNull MeshID compareID)`
 
-<ul>
-<li><strong>Parameters:</strong> <code class="prettyprint">aInputStream</code> — the object stream to read the MeshID object from.</li>
-<li><p><strong>Exceptions:</strong></p>
+Allows comparison by ID so that we can sort entries by ID
 
-<ul>
-<li><code class="prettyprint">ClassNotFoundException</code> — if the object type or version doesn&rsquo;t match MeshID</li>
-<li><code class="prettyprint">IOException</code> — if there was a general error reading from the stream (ended early</li>
-</ul>
+ * **Parameters:** `compareID` — the MeshID to compare against
+ * **Returns:** less than 0 if a &lt; b, greater than zero if b &lt; a. zero otherwise
 
-<p>or something)</p></li>
-</ul>
+## `public void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException`
 
-<h2 id="public-void-writeobject-objectoutputstream-aoutputstream-throws-ioexception"><code class="prettyprint">public void writeObject(ObjectOutputStream aOutputStream) throws IOException</code></h2>
+Assumes we are reading a mesh id to be creatd from raw bytes note the mesh id created from this read cannot generate a compatible eckey for signatures. Note we only reconstructing the uuid itself not any of the encryption stuff or the wallet info.
 
-<p>Writes out a MeshID with raw bytes. Note the mesh id created from this write cannot generate a compatible eckey for signatures. We only serialize the raw uuid bytes and none of the encryption stuff.</p>
+ * **Parameters:** `aInputStream` — the object stream to read the MeshID object from.
+ * **Exceptions:**
+   * `ClassNotFoundException` — if the object type or version doesn't match MeshID
+   * `IOException` — if there was a general error reading from the stream (ended early
 
-<ul>
-<li><strong>Parameters:</strong> <code class="prettyprint">aOutputStream</code> — the object stream we will write the uuid into.</li>
-<li><strong>Exceptions:</strong> <code class="prettyprint">IOException</code> — if there was an error writing to the output stream.</li>
-</ul>
+     or something)
 
-<h2 id="public-int-getregistrationid"><code class="prettyprint">public int getRegistrationID()</code></h2>
+## `public void writeObject(ObjectOutputStream aOutputStream) throws IOException`
 
-<p>Used for encryption - this is the signal store registration ID of the remote address. (Developers should not have access to this)</p>
+Writes out a MeshID with raw bytes. Note the mesh id created from this write cannot generate a compatible eckey for signatures. We only serialize the raw uuid bytes and none of the encryption stuff.
 
-<ul>
-<li><strong>Returns:</strong> the signal store registration ID of the remote device</li>
-</ul>
+ * **Parameters:** `aOutputStream` — the object stream we will write the uuid into.
+ * **Exceptions:** `IOException` — if there was an error writing to the output stream.
 
-<h2 id="public-identitykey-getidpublickey"><code class="prettyprint">public IdentityKey getIDPublicKey()</code></h2>
+## `public int getRegistrationID()`
 
-<p>Accessor for the identity public key. (Developers should not have access to this)</p>
+Used for encryption - this is the signal store registration ID of the remote address. (Developers should not have access to this)
 
-<ul>
-<li><strong>Returns:</strong> the signal public key associated with this identity</li>
-</ul>
+ * **Returns:** the signal store registration ID of the remote device
 
-<h2 id="public-ecpublickey-getsignedprekeypublickey"><code class="prettyprint">public ECPublicKey getSignedPreKeyPublicKey()</code></h2>
+## `public IdentityKey getIDPublicKey()`
 
-<p>Accessor for the signed pre key public key (probably we should actually return a whole set of these since they should be generated in groups and then exchanged all at once). (Developers should not have access to this)</p>
+Accessor for the identity public key. (Developers should not have access to this)
 
-<ul>
-<li><strong>Returns:</strong> the signed pre key public key</li>
-</ul>
+ * **Returns:** the signal public key associated with this identity
 
-<h2 id="public-ecpublickey-getprekeypublickey"><code class="prettyprint">public ECPublicKey getPreKeyPublicKey()</code></h2>
+## `public ECPublicKey getSignedPreKeyPublicKey()`
 
-<p>Accessor for the pre key public key (probably we should actually return a whole set of these since they should be generated in groups and then exchanged all at once). (Developers should not have access to this)</p>
+Accessor for the signed pre key public key (probably we should actually return a whole set of these since they should be generated in groups and then exchanged all at once). (Developers should not have access to this)
 
-<ul>
-<li><strong>Returns:</strong> the pre key public key</li>
-</ul>
+ * **Returns:** the signed pre key public key
 
-<h2 id="public-byte-getprekeysignature"><code class="prettyprint">public byte[] getPreKeySignature()</code></h2>
+## `public ECPublicKey getPreKeyPublicKey()`
 
-<p>Computes and returns the prekey signature or throws exception. (Developers should not have access to this)</p>
+Accessor for the pre key public key (probably we should actually return a whole set of these since they should be generated in groups and then exchanged all at once). (Developers should not have access to this)
 
-<ul>
-<li><strong>Returns:</strong> the valid prekey signature or throws exception</li>
-</ul>
+ * **Returns:** the pre key public key
 
-<h2 id="public-void-addremotekeybundle-prekeybundle-remotekeybundle-meshid-puuid-throws-invalidkeyexception-untrustedidentityexception"><code class="prettyprint">public void addRemoteKeyBundle(PreKeyBundle remoteKeyBundle, MeshID puuid) throws InvalidKeyException, UntrustedIdentityException</code></h2>
+## `public byte[] getPreKeySignature()`
 
-<p>Attempts to add the prekeybundle to our local signal store. (Developers should not have access to this)</p>
+Computes and returns the prekey signature or throws exception. (Developers should not have access to this)
 
-<ul>
-<li><strong>Parameters:</strong>
+ * **Returns:** the valid prekey signature or throws exception
 
-<ul>
-<li><code class="prettyprint">remoteKeyBundle</code> — the prekey bundle we wish to add</li>
-<li><code class="prettyprint">puuid</code> — the MeshID of the peer we wish to add a key to the keystore for</li>
-</ul></li>
-<li><strong>Exceptions:</strong>
+## `public void addRemoteKeyBundle(PreKeyBundle remoteKeyBundle, MeshID puuid) throws InvalidKeyException, UntrustedIdentityException`
 
-<ul>
-<li><code class="prettyprint">InvalidKeyException</code> — if the key we are trying to add isn&rsquo;t good</li>
-<li><code class="prettyprint">UntrustedIdentityException</code> — if the key hasn&rsquo;t been signed properly.</li>
-</ul></li>
-</ul>
+Attempts to add the prekeybundle to our local signal store. (Developers should not have access to this)
 
-<h2 id="public-sessioncipher-getpeersession-meshid-puuid"><code class="prettyprint">public SessionCipher getPeerSession(MeshID puuid)</code></h2>
+ * **Parameters:**
+   * `remoteKeyBundle` — the prekey bundle we wish to add
+   * `puuid` — the MeshID of the peer we wish to add a key to the keystore for
+ * **Exceptions:**
+   * `InvalidKeyException` — if the key we are trying to add isn't good
+   * `UntrustedIdentityException` — if the key hasn't been signed properly.
 
-<p>Creates a new peer session if we haven&rsquo;t set one up with the remote peer yet, or returns the already existing session cipher so we can encrypt / decrypt with it. (Developers should not have access to this)</p>
+## `public SessionCipher getPeerSession(MeshID puuid)`
 
-<ul>
-<li><strong>Parameters:</strong> <code class="prettyprint">puuid</code> — the peer MeshID we are trying to return a session with</li>
-<li><strong>Returns:</strong> the session cipher of a previous or new session with a remote peer</li>
-</ul>
+Creates a new peer session if we haven't set one up with the remote peer yet, or returns the already existing session cipher so we can encrypt / decrypt with it. (Developers should not have access to this)
 
-<h2 id="public-boolean-hassession-meshid-puuid"><code class="prettyprint">public boolean hasSession(MeshID puuid)</code></h2>
+ * **Parameters:** `puuid` — the peer MeshID we are trying to return a session with
+ * **Returns:** the session cipher of a previous or new session with a remote peer
 
-<p>Given a peer MeshID, returns whether or not an encryption session exists. If a developer calls this function, they can only call it on their own MeshID, and then pass in the MeshID of the peers we wish to know about sessions. If the session doesn&rsquo;t exists, they should initiate the exchangeKeys function.</p>
+## `public boolean hasSession(MeshID puuid)`
 
-<ul>
-<li><strong>Parameters:</strong> <code class="prettyprint">puuid</code> — the peer MeshID</li>
-<li><strong>Returns:</strong> true if an encryption sessions exists with this peer, false otherwise</li>
-</ul>
+Given a peer MeshID, returns whether or not an encryption session exists. If a developer calls this function, they can only call it on their own MeshID, and then pass in the MeshID of the peers we wish to know about sessions. If the session doesn't exists, they should initiate the exchangeKeys function.
 
-<h2 id="public-int-getprekeyid"><code class="prettyprint">public int getPrekeyid()</code></h2>
+ * **Parameters:** `puuid` — the peer MeshID
+ * **Returns:** true if an encryption sessions exists with this peer, false otherwise
 
-<p>Used for the signal encryption exchange (Not to be used by developers)</p>
+## `public int getPrekeyid()`
 
-<ul>
-<li><strong>Returns:</strong> the id in the keystore for the prekey we have stored of ourselves.</li>
-</ul>
+Used for the signal encryption exchange (Not to be used by developers)
 
-<h2 id="public-int-getsignedprekeyid"><code class="prettyprint">public int getSignedprekeyid()</code></h2>
+ * **Returns:** the id in the keystore for the prekey we have stored of ourselves.
 
-<p>Used for the signal encryption exchange (Not to be used by developers)</p>
+## `public int getSignedprekeyid()`
 
-<ul>
-<li><strong>Returns:</strong> the id in the keystore for the signedprekey we have stored of ourselves.</li>
-</ul>
+Used for the signal encryption exchange (Not to be used by developers)
+
+ * **Returns:** the id in the keystore for the signedprekey we have stored of ourselves.
+</code></pre>
