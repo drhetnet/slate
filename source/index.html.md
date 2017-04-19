@@ -2,8 +2,8 @@
 title: API Reference
 
 language_tabs:
-  - java: Android
-  - java: Java
+  - Java
+  - Android
 
 toc_footers:
   - <a href='keys.php'>Sign Up for a Developer Key</a>
