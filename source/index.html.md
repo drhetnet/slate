@@ -2,8 +2,8 @@
 title: API Reference
 
 language_tabs:
-  - android
-  - java
+  - java: Android
+  - java: Java
 
 toc_footers:
   - <a href='keys.php'>Sign Up for a Developer Key</a>
@@ -23,11 +23,11 @@ Welcome to the Wave API! We support Android and Windows / Linux (java) developme
 
 > This should appear on the right and below should be some specfic code for it.
 
-```android
+```Android
 MeshManager mm = AndroidMeshManager.getInstance(MainActivity.this, MainActivity.this);
 ```
 
-```java
+```Java
 MeshManager mm = new JavaMeshManager();
 ```
 Here's some other writing which is on the left side
