@@ -1,5 +1,6 @@
-# Documentation
+# MeshID
 
+```Java
 ## `public class MeshID implements Comparable<MeshID>, Serializable, Parcelable`
 
 Created by jason on 08/08/16. Attempts to look for a previously created encrypted unique id file on the device. If it does not exist, attempt to create one.
@@ -216,3 +217,4 @@ Used for the signal encryption exchange (Not to be used by developers)
 Used for the signal encryption exchange (Not to be used by developers)
 
  * **Returns:** the id in the keystore for the signedprekey we have stored of ourselves.
+```
