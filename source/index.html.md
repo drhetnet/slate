@@ -1,16 +1,15 @@
 ---
-title: API Reference
+title: Wave API Examples
 
 language_tabs:
-  - Java
-  - PHP
+  - java: Android
+  - javascript: Windows / Linux
 
 toc_footers:
   - <a href='keys.php'>Sign Up for a Developer Key</a>
   - <a href='login.php?a=logout'>Logout</a>
 
 includes:
-  - MeshID
 
 search: true
 ---
@@ -23,11 +22,11 @@ Welcome to the Wave API! We support Android and Windows / Linux (java) developme
 
 > This should appear on the right and below should be some specfic code for it.
 
-```Java
+```java
 MeshManager mm = AndroidMeshManager.getInstance(MainActivity.this, MainActivity.this);
 ```
 
-```PHP
+```javascript
 MeshManager mm = new JavaMeshManager();
 ```
 Here's some other writing which is on the left side
