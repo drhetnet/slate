@@ -219,7 +219,7 @@ if(!isLoggedIn()) {
   <div class="apiheader">
     <div class="contentcontainer">
       <header>
-        <!-- <div class="logo"><a href="<?php echo DOC_SERVER; ?>"><img src="https://developer.wave.io/images/smalllogo.png"></a></div> -->
+         <div class="logo"><a href="<?php echo DOC_SERVER; ?>"><img src="https://developer.wave.io/images/smalllogo.png"></a></div>
 
           <div class="nav">
             <ul>
@@ -243,7 +243,7 @@ if(!isLoggedIn()) {
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="images/navbar.png" alt="Navbar" />
+        <!--<img src="images/navbar.png" alt="Navbar" />-->
       </span>
     </a>
     <div class="tocify-wrapper">
